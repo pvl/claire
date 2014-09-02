@@ -17,6 +17,7 @@ class TheGame(Level):
 
 
   def key(self, symbol, mod):
+    self.game_piece.speed = self.score / 10 + 1
     num = set(range(ord("0"), ord("9") + 1))
     # If answer box, check to see if they were right
     if symbol == ENTER:
@@ -55,13 +56,16 @@ class IntroScreen(Level):
     self.welcome = pyglet.text.Label('WELCOME\n\tTO\nCLAIRE', x=100, y=window.height-80,
                                     width=window.width//2,
                                     font_size=40, multiline=True)
-    
+
     scores = self.get_scores()
-    print scores
     self.scores = pyglet.text.Label("".join(scores), x=100, y=window.height-280,
                                     width=int(window.width * .8),
                                     font_size=30, multiline=True)
     super(IntroScreen, self).__init__()
+
+  def reset(self):
+    scores = self.get_scores()
+    self.scores.text = "".join(scores)
 
   def get_scores(self):
     with open("scores.txt") as fp:
@@ -91,7 +95,7 @@ class GameOver(Level):
 
   def hi_score(self, user, score):
     with open("scores.txt", "a") as fp:
-      fp.write("%s: %s\n" % (user, round(score, 2)))
+      fp.write("%s: %s\n" % (user, round(float(score), 2)))
 
   def draw(self):
     window.clear()
