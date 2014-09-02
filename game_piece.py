@@ -11,6 +11,7 @@ class Problem(object):
   def __init__(self, window):
     self.window = window
     self.time = 0
+    self.speed = 1
     animation = pyglet.image.load_animation('resources/explosion.gif')
     self.explosion = pyglet.sprite.Sprite(animation)
     self.explosion_snd = pyglet.resource.media('resources/explosion.wav', streaming=False)
@@ -32,7 +33,7 @@ class Problem(object):
   def update(self, dt):
     # drop the position of the problem text
     self.time += dt
-    self.problem.y -= 1
+    self.problem.y -= self.speed
 
   def reset(self, dt=None):
     self.state = FALLING
