@@ -10,6 +10,7 @@ RED = (255, 0, 0, 255)
 class Problem(object):
   def __init__(self, window):
     self.window = window
+    self.time = 0
     animation = pyglet.image.load_animation('resources/explosion.gif')
     self.explosion = pyglet.sprite.Sprite(animation)
     self.explosion_snd = pyglet.resource.media('resources/explosion.wav', streaming=False)
@@ -26,9 +27,11 @@ class Problem(object):
     problem = "%s + %s" % (a, b)
     self.answer = str(answer)
     self.problem.text = problem
+    self.time = 0
 
   def update(self, dt):
     # drop the position of the problem text
+    self.time += dt
     self.problem.y -= 1
 
   def reset(self, dt=None):
@@ -45,6 +48,11 @@ class Problem(object):
       self.explosion_snd.play()
       self.explosion._frame_index = 0 # this is probably bad and wrong.
       pyglet.clock.schedule_once(self.reset, 1)
+      return self.time
+
+  def fail(self, y=0):
+    if self.problem.y <= y + 10:
+      return True
       
   def draw(self):
     if self.state == FALLING:
