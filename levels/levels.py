@@ -1,8 +1,9 @@
 class Level(object):
   """Provide object that handles draw, clock, and key events."""
 
-  def __init__(self):
+  def __init__(self, window):
     self.container = None
+    self.window = window
     self.messages = {}
 
   def reset(self):
