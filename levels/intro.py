@@ -24,7 +24,7 @@ class IntroScreen(Level):
     with open("scores.txt") as fp:
       lines = fp.readlines()
     lines = sorted(lines, reverse=True, key=lambda l: float(l.split(': ')[-1]))
-    return ["{}. {}".format(i, line) for i, line in enumerate(lines[:5], 1)]
+    return ["#{} - {}".format(i, line) for i, line in enumerate(lines[:5], 1)]
 
   def key(self, symbol, mod):
     if symbol == SPACE:
