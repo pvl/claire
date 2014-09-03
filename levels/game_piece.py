@@ -52,7 +52,7 @@ class Problem(object):
       return self.time
 
   def fail(self, y=0):
-    if self.problem.y <= y + 10:
+    if self.problem.y <= y and self.state == FALLING:
       return True
       
   def draw(self):
