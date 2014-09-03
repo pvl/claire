@@ -1,8 +1,9 @@
 import pyglet
-from pyglet.window.key import ENTER, SPACE, BACKSPACE
+from pyglet.window.key import ENTER
 
 from .levels import Level
 from .game_piece import Problem
+from .drawing import rectangle
 
 class TheGame(Level):
   def __init__(self, window):
@@ -33,6 +34,7 @@ class TheGame(Level):
   def draw(self):
     self.window.clear()
     self.game_piece.draw()
+    rectangle(0, self.window.height-40, 40, self.window.width)
     self.user_answer.draw()
     self.score_text.draw()
 
