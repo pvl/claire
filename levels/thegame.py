@@ -16,6 +16,8 @@ class TheGame(Level):
 
   def key(self, symbol, mod):
     self.game_piece.speed = self.score / 10 + 1
+    if 65457 <= symbol <= 65465:
+        symbol -= 65408  # drop num pad to ascii 0-9 range
     num = set(range(ord("0"), ord("9") + 1))
     # If answer box, check to see if they were right
     if symbol == ENTER:
