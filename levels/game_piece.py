@@ -8,16 +8,22 @@ RED = (255, 0, 0, 255)
 
 
 class Problem(object):
+  """Wraps problem generation (what math problem are we solving) and behavior. (1 hit? 2 hits? Special speedup?)
+
+  """
+  animation = pyglet.image.load_animation('resources/explosion.gif')
+  explosion_snd = pyglet.resource.media('resources/explosion.wav', streaming=False)
+  boop_snd = pyglet.resource.media('resources/boop.wav', streaming=False)
+  explosion = pyglet.sprite.Sprite(animation)
+  
   def __init__(self, window):
     self.window = window
     self.time = 0
     self.speed = 1
-    animation = pyglet.image.load_animation('resources/explosion.gif')
-    self.explosion = pyglet.sprite.Sprite(animation)
-    self.explosion_snd = pyglet.resource.media('resources/explosion.wav', streaming=False)
-    self.boop_snd = pyglet.resource.media('resources/boop.wav', streaming=False)
+    self.high_score = 0
     self.problem = pyglet.text.Label('', x=100, y=self.window.height, font_size=20, color=RED)
     self.answer = ""
+    self.value = 1
     self.reset()
     
   
@@ -35,7 +41,7 @@ class Problem(object):
     self.time += dt
     self.problem.y -= self.speed
 
-  def reset(self, dt=None):
+  def reset(self, dt=None, level=0):
     self.state = FALLING
     # pick a random value of x between 0 and width of window (- some margins)
     self.problem.x = random.choice(xrange(50, self.window.width - 50))
