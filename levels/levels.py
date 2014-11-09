@@ -58,10 +58,11 @@ class Levels(object):
   def draw(self):
     self.current.draw()
 
-  def next(self):
+  def advance(self):
     self.level += 1
     return self
 
+  @property
   def prev(self):
-    self.level -= 1
+    return self._level -= 1
     return self
