@@ -14,6 +14,7 @@ class IntroScreen(Level):
     self.scores = pyglet.text.Label("".join(scores), x=100, y=window.height-280,
                                     width=int(window.width * .8),
                                     font_size=30, multiline=True)
+    self.high_score = 0
     super(IntroScreen, self).__init__(window)
 
   def reset(self):
@@ -24,11 +25,15 @@ class IntroScreen(Level):
     with open("scores.txt") as fp:
       lines = fp.readlines()
     lines = sorted(lines, reverse=True, key=lambda l: float(l.split(': ')[-1]))
+    if lines:
+      self.high_score = float(lines[0].split(": ")[-1])
     return ["#{} - {}".format(i, line) for i, line in enumerate(lines[:5], 1)]
 
   def key(self, symbol, mod):
     if symbol == SPACE:
       self.container.next()
+      print self.container.current
+      self.container.current.msg(high_score=self.high_score)
 
   def draw(self):
     self.window.clear()
