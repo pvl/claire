@@ -1,3 +1,4 @@
+import os
 import pyglet
 from pyglet.window.key import SPACE
 
@@ -6,7 +7,8 @@ from .levels import Level
 
 class IntroScreen(Level):
   def __init__(self, window):
-    self.welcome = pyglet.text.Label('WELCOME\n\tTO\nCLAIRE', x=100, y=window.height-80,
+    self.welcome = pyglet.text.Label('WELCOME\n\tTO\nCLAIRE', x=100,
+                                    y=window.height-80,
                                     width=window.width//2,
                                     font_size=40, multiline=True)
 
@@ -22,8 +24,11 @@ class IntroScreen(Level):
     self.scores.text = "".join(scores)
 
   def get_scores(self):
-    with open("scores.txt") as fp:
-      lines = fp.readlines()
+    if os.path.exists("scores.txt"):
+      with open("scores.txt") as fp:
+        lines = fp.readlines()
+    else:
+      lines = []
     lines = sorted(lines, reverse=True, key=lambda l: float(l.split(': ')[-1]))
     if lines:
       self.high_score = float(lines[0].split(": ")[-1])
@@ -32,7 +37,7 @@ class IntroScreen(Level):
   def key(self, symbol, mod):
     if symbol == SPACE:
       self.container.next()
-      print self.container.current
+      print(self.container.current)
       self.container.current.msg(high_score=self.high_score)
 
   def draw(self):

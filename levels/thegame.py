@@ -7,9 +7,12 @@ from .drawing import rectangle
 
 class TheGame(Level):
   def __init__(self, window):
-    self.user_answer = pyglet.text.Label('', x=10, y=window.height-30, font_size=20)
-    self.score_text = pyglet.text.Label('0', x=window.width-100, y=window.height-30, font_size=20)
-    self.difficulty_text = pyglet.text.Label('', x=window.width-200, y=window.height-300, font_size=20)
+    self.user_answer = pyglet.text.Label('', x=10, y=window.height-30,
+                                         font_size=20)
+    self.score_text = pyglet.text.Label('0', x=window.width-100,
+                                        y=window.height-30, font_size=20)
+    self.difficulty_text = pyglet.text.Label('', x=window.width-200,
+                                             y=window.height-300, font_size=20)
     self.score = 0
     self.difficulty_show = 0
     super(TheGame, self).__init__(window)
@@ -57,7 +60,7 @@ class TheGame(Level):
       self.container.current.msg(score=self.score)
 
   def reset(self):
-    print self.messages
+    print(self.messages)
     self.high_score = self.messages.get('high_score', 0)
     self.game_piece.reset(self.difficulty)
     self.score_text.text = ""

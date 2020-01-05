@@ -64,5 +64,8 @@ class Levels(object):
 
   @property
   def prev(self):
-    return self._level -= 1
+    self._level -= 1
     return self
+
+  def next(self):
+    return self.advance()

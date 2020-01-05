@@ -15,7 +15,7 @@ class Problem(object):
   explosion_snd = pyglet.resource.media('resources/explosion.wav', streaming=False)
   boop_snd = pyglet.resource.media('resources/boop.wav', streaming=False)
   explosion = pyglet.sprite.Sprite(animation)
-  
+
   def __init__(self, window):
     self.window = window
     self.time = 0
@@ -25,8 +25,8 @@ class Problem(object):
     self.answer = ""
     self.value = 1
     self.reset()
-    
-  
+
+
   def generate_problem(self):
     answer = random.choice(range(2, 10))
     a = answer - random.choice(range(1, answer))
@@ -44,7 +44,7 @@ class Problem(object):
   def reset(self, dt=None, level=0):
     self.state = FALLING
     # pick a random value of x between 0 and width of window (- some margins)
-    self.problem.x = random.choice(xrange(50, self.window.width - 50))
+    self.problem.x = random.choice(range(50, self.window.width - 50))
     self.problem.y = self.window.height
     self.generate_problem()
 
@@ -60,7 +60,7 @@ class Problem(object):
   def fail(self, y=0):
     if self.problem.y <= y and self.state == FALLING:
       return True
-      
+
   def draw(self):
     if self.state == FALLING:
       self.problem.draw()

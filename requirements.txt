@@ -1,1 +1,1 @@
-pyglet==1.2alpha1
+pyglet>=1.2
